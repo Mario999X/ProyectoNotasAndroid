@@ -76,6 +76,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         notifyDataSetChanged();
     }
 
+    public void removeAllNotas(ArrayList<Nota> notaList){
+        this.notaList = notaList;
+        notaList.clear();
+    }
+
     public void removeNota (int position){
         notaList.remove(position);
         notifyDataSetChanged();
