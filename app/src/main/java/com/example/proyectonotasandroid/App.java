@@ -25,7 +25,6 @@ public class App extends AppCompatActivity implements OnClick{
     MyAdapter myAdapter;
 
 
-
     private SharedPreferences mPrefes;
 
 
