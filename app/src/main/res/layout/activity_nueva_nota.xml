@@ -4,20 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NuevaNota">
+    tools:context=".NuevaNota"
+    android:background="@color/cardview_dark_background">
 
     <EditText
         android:id="@+id/editarTexto"
-        android:layout_width="382dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="108dp"
+        android:layout_width="358dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="150dp"
+        android:background="@color/cardview_light_background"
         android:ems="10"
         android:hint="Texto"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintHorizontal_bias="0.399"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,9 +27,25 @@
         android:id="@+id/botonGuardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="68dp"
         android:text="Guardar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editarTexto" />
+        app:layout_constraintTop_toBottomOf="@+id/editarTexto"
+        app:layout_constraintVertical_bias="0.004" />
+
+    <Button
+        android:id="@+id/botonCancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="52dp"
+        android:text="Cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.726"
+        app:layout_constraintStart_toEndOf="@+id/botonGuardar"
+        app:layout_constraintTop_toBottomOf="@+id/editarTexto"
+        app:layout_constraintVertical_bias="0.004" />
 </androidx.constraintlayout.widget.ConstraintLayout>
