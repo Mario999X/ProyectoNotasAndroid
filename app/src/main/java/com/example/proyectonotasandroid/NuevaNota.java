@@ -30,10 +30,19 @@ public class NuevaNota extends DialogFragment {
 
         EditText editarTexto = dialogView.findViewById(R.id.editarTexto);
         Button botonGuardar = dialogView.findViewById(R.id.botonGuardar);
+        Button botonCancelar = dialogView.findViewById(R.id.botonCancelar);
 
         //construimos el dialog
         builder.setView(dialogView)
                 .setMessage("Añadir una nueva Nota");
+
+
+        botonCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
 
         botonGuardar.setOnClickListener(new View.OnClickListener() {
             @Override

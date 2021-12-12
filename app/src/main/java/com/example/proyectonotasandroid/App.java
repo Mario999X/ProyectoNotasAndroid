@@ -1,10 +1,12 @@
 package com.example.proyectonotasandroid;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -58,6 +60,25 @@ public class App extends AppCompatActivity implements OnClick{
             myAdapter.addNota(newNota);
     }
 
+    public AlertDialog borrarNota(int position){
+
+        AlertDialog.Builder aviso = new AlertDialog.Builder(this);
+
+        aviso.setMessage("¿Quieres borrar la nota?").setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                myAdapter.notaList.remove(position);
+
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        return aviso.create();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -78,19 +99,24 @@ public class App extends AppCompatActivity implements OnClick{
             dialog.show(getSupportFragmentManager(),"nota_crear");
         }
 
-        /*if(item.getItemId() == R.id.action_ajustes){
+        if(item.getItemId() == R.id.action_ajustes){
             //creamos un Intent
-            Intent intent = new Intent(this, AjustesActivity.class);
+            Intent intent = new Intent(this, SettingsActivity.class);
             //arrancar la activity
             startActivity(intent);
         }
 
-         */
         return false;
     }
 
     @Override
     public void onClick(int posicion) {
+
+    }
+
+    @Override
+    public void onLongClick(int posicion) {
+        borrarNota(posicion).show();
 
     }
 }
