@@ -1,7 +1,8 @@
 package com.example.proyectonotasandroid;
 
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
+import android.os.FileUtils;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,18 +23,15 @@ public class SettingsActivity extends AppCompatActivity{
 
         botonReset = findViewById(R.id.botonReset);
 
-        /*botonReset.setOnClickListener(new View.OnClickListener() {
+        botonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myAdapter.removeAll();
-                myAdapter.notifyDataSetChanged();
+                //myAdapter.removeNotes();
         }
     });
 
-         */
-
-
     }
+
 
     @Override
     protected void onPause() {

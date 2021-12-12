@@ -105,10 +105,6 @@ public class App extends AppCompatActivity implements OnClick{
         setAdaptator();
     }
 
-    public void guardarNota(Nota n, int posicion){
-        notaList.set(posicion, n);
-        setAdaptator();
-    }
 
     private AlertDialog borrarNota(int posicion){
         AlertDialog.Builder aviso = new AlertDialog.Builder(this);
@@ -140,6 +136,7 @@ public class App extends AppCompatActivity implements OnClick{
         serialicer = new JSonSerialicer("notas.json", this);
        return serialicer.load();
     }
+
 
     private void setAdaptator(){
         myAdapter = new MyAdapter(notaList, this);

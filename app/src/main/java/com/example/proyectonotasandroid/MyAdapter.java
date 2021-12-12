@@ -40,7 +40,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         TextView salidaTexto;
@@ -54,6 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             salidaTexto = itemView.findViewById(R.id.salidaTexto);
 
         }
+
 
         @Override
         public void onClick(View v) {
