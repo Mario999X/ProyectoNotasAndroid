@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     ArrayList<Nota> notaList;
-
     private OnClick onClick;
 
     public MyAdapter(ArrayList<Nota> notaList,OnClick onClick) {
@@ -50,6 +49,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
 
             salidaTexto = itemView.findViewById(R.id.salidaTexto);
 
@@ -57,34 +57,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            onClick.onClick(position);
+            int posicion = getAdapterPosition();
+            onClick.onClick(posicion);
         }
 
         @Override
         public boolean onLongClick(View v) {
-            int position = getAdapterPosition();
-            onClick.onLongClick(position);
+            int posicion = getAdapterPosition();
+            onClick.onLongClick(posicion);
             return false;
         }
     }
 
-
-
-
-    public void addNota (Nota n){
-        notaList.add(n);
-        notifyDataSetChanged();
-    }
-
-    public void removeAllNotas (){
-        notaList.removeAll(notaList);
-        notifyDataSetChanged();
-    }
-
-    public void removeNota (int position){
-        notaList.remove(position);
-        notifyDataSetChanged();
-    }
 
 }

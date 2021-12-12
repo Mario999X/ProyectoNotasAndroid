@@ -22,58 +22,29 @@ public class App extends AppCompatActivity implements OnClick{
     RecyclerView recyclerView;
     MyAdapter myAdapter;
 
-
-    private SharedPreferences mPrefes;
-
+    private JSonSerialicer serialicer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.recycler);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setHasFixedSize(true);
-        notaList = new ArrayList<Nota>();
-        myAdapter = new MyAdapter(notaList, this);
 
-
-        recyclerView.setAdapter(myAdapter);
+        initComponents();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mPrefes = getSharedPreferences("ProyectoNotasAndroid", MODE_PRIVATE);
+
     }
 
-    public void crearNuevaNota(Nota newNota) {
-        //este metodo recibira una nota creada por el dialogo
-
-            myAdapter.addNota(newNota);
+    @Override
+    protected void onPause(){
+        super.onPause();
+        guardarNotas();
     }
-
-    public AlertDialog borrarNota(int position){
-
-        AlertDialog.Builder aviso = new AlertDialog.Builder(this);
-
-        aviso.setMessage("¿Quieres borrar la nota?").setPositiveButton("Si", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                myAdapter.notaList.remove(position);
-
-            }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        return aviso.create();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -113,6 +84,66 @@ public class App extends AppCompatActivity implements OnClick{
     @Override
     public void onLongClick(int posicion) {
         borrarNota(posicion).show();
-
     }
+
+
+    private void initComponents(){
+
+        recyclerView = findViewById(R.id.recycler);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setHasFixedSize(true);
+
+        notaList = leerFichero();
+
+        setAdaptator();
+    }
+
+
+    public void nuevaNota(Nota n){
+        notaList.add(n);
+        setAdaptator();
+    }
+
+    public void guardarNota(Nota n, int posicion){
+        notaList.set(posicion, n);
+        setAdaptator();
+    }
+
+    private AlertDialog borrarNota(int posicion){
+        AlertDialog.Builder aviso = new AlertDialog.Builder(this);
+
+        aviso.setMessage("¿Quieres borrar la nota?").setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                notaList.remove(posicion);
+                setAdaptator();
+
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        return aviso.create();
+    }
+
+    private void guardarNotas(){
+
+        serialicer = new JSonSerialicer("notas.json", this);
+        serialicer.save(notaList);
+        setAdaptator();
+    }
+
+    private ArrayList<Nota> leerFichero(){
+        serialicer = new JSonSerialicer("notas.json", this);
+       return serialicer.load();
+    }
+
+    private void setAdaptator(){
+        myAdapter = new MyAdapter(notaList, this);
+        recyclerView.setAdapter(myAdapter);
+    }
+
 }
