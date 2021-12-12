@@ -9,7 +9,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
-public class SettingsActivity extends AppCompatActivity implements OnClick{
+public class SettingsActivity extends AppCompatActivity{
 
     MyAdapter myAdapter;
     Button botonReset;
@@ -26,19 +26,18 @@ public class SettingsActivity extends AppCompatActivity implements OnClick{
 
         mEditor = mPrefes.edit(); //formato editable
 
+        botonReset = findViewById(R.id.botonReset);
 
-    /*botonReset.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-
+        botonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myAdapter.removeAllNotas();
+                myAdapter.notifyDataSetChanged();
         }
     });
 
-     */
 
     }
-
 
     @Override
     protected void onPause() {
@@ -47,13 +46,4 @@ public class SettingsActivity extends AppCompatActivity implements OnClick{
     }
 
 
-    @Override
-    public void onClick(int posicion) {
-
-    }
-
-    @Override
-    public void onLongClick(int posicion) {
-
-    }
 }

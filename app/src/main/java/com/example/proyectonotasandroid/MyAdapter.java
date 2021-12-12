@@ -22,7 +22,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
 
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -71,14 +70,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
 
+
+
     public void addNota (Nota n){
         notaList.add(n);
         notifyDataSetChanged();
     }
 
-    public void removeAllNotas(ArrayList<Nota> notaList){
-        this.notaList = notaList;
-        notaList.clear();
+    public void removeAllNotas (){
+        notaList.removeAll(notaList);
+        notifyDataSetChanged();
     }
 
     public void removeNota (int position){
