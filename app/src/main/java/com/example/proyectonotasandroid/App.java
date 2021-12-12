@@ -12,13 +12,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+
 
 import java.util.ArrayList;
 
 public class App extends AppCompatActivity implements OnClick{
-
-
 
     ArrayList<Nota> notaList;
     RecyclerView recyclerView;
@@ -53,8 +51,6 @@ public class App extends AppCompatActivity implements OnClick{
 
     public void crearNuevaNota(Nota newNota) {
         //este metodo recibira una nota creada por el dialogo
-
-             //nTemporal = newNota;
 
             myAdapter.addNota(newNota);
     }
