@@ -57,7 +57,7 @@ public class NuevaNota extends DialogFragment {
 
                 App llamarActivity = (App) getActivity();
 
-                llamarActivity.crearNuevaNota(newNota);
+                llamarActivity.nuevaNota(newNota);
 
                 dismiss();
             }
