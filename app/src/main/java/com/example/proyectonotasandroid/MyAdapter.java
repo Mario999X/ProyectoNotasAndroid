@@ -1,6 +1,5 @@
 package com.example.proyectonotasandroid;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         TextView salidaTexto;
 
@@ -62,10 +61,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             int position = getAdapterPosition();
             onClick.onClick(position);
         }
+
+        @Override
+        public boolean onLongClick(View v) {
+            int position = getAdapterPosition();
+            onClick.onLongClick(position);
+            return false;
+        }
     }
+
 
     public void addNota (Nota n){
         notaList.add(n);
+        notifyDataSetChanged();
+    }
+
+    public void removeNota (int position){
+        notaList.remove(position);
         notifyDataSetChanged();
     }
 
