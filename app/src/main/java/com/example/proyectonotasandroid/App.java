@@ -3,24 +3,28 @@ package com.example.proyectonotasandroid;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 
 import java.util.ArrayList;
 
 public class App extends AppCompatActivity implements OnClick{
 
-    ArrayList<Nota> notaList;
+    ArrayList<Note> noteList;
     RecyclerView recyclerView;
     MyAdapter myAdapter;
+    private ConstraintLayout layoutMain;
+    private Animation blink;
 
     private JSonSerialicer serialicer;
 
@@ -43,7 +47,7 @@ public class App extends AppCompatActivity implements OnClick{
     @Override
     protected void onPause(){
         super.onPause();
-        guardarNotas();
+        saveNotes();
     }
 
     @Override
@@ -61,7 +65,7 @@ public class App extends AppCompatActivity implements OnClick{
 
         if(item.getItemId() == R.id.action_add){
             //aqui debemos de invocar una nueva instancia del dialogo para crear notas
-            NuevaNota dialog = new NuevaNota();
+            NewNote dialog = new NewNote();
             //mostramos ese dialogo a traves del manager
             dialog.show(getSupportFragmentManager(),"nota_crear");
         }
@@ -77,13 +81,14 @@ public class App extends AppCompatActivity implements OnClick{
     }
 
     @Override
-    public void onClick(int posicion) {
+    public void onClick(int position) {
 
     }
 
+
     @Override
-    public void onLongClick(int posicion) {
-        borrarNota(posicion).show();
+    public void onLongClick(int position, ConstraintLayout layoutMain) {
+        removeNote(position, layoutMain).show();
     }
 
 
@@ -93,26 +98,30 @@ public class App extends AppCompatActivity implements OnClick{
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
+        layoutMain = findViewById(R.id.layoutMain);
 
-        notaList = leerFichero();
+        noteList = readFile();
+        blink = AnimationUtils.loadAnimation(this,R.anim.prolonged_selection);
+
 
         setAdaptator();
     }
 
 
-    public void nuevaNota(Nota n){
-        notaList.add(n);
+    public void addNewNote(Note n){
+        noteList.add(n);
         setAdaptator();
     }
 
 
-    private AlertDialog borrarNota(int posicion){
+    private AlertDialog removeNote(int position, ConstraintLayout layoutMain){
         AlertDialog.Builder aviso = new AlertDialog.Builder(this);
+        layoutMain.startAnimation(blink);
 
         aviso.setMessage("¿Quieres borrar la nota?").setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                notaList.remove(posicion);
+                noteList.remove(position);
                 setAdaptator();
 
             }
@@ -125,21 +134,21 @@ public class App extends AppCompatActivity implements OnClick{
         return aviso.create();
     }
 
-    private void guardarNotas(){
+    private void saveNotes(){
 
-        serialicer = new JSonSerialicer("notas.json", this);
-        serialicer.save(notaList);
+        serialicer = new JSonSerialicer("notes.json", this);
+        serialicer.save(noteList);
         setAdaptator();
     }
 
-    private ArrayList<Nota> leerFichero(){
-        serialicer = new JSonSerialicer("notas.json", this);
-       return serialicer.load();
+    private ArrayList<Note> readFile(){
+        serialicer = new JSonSerialicer("notes.json", this);
+        return serialicer.load();
     }
 
 
     private void setAdaptator(){
-        myAdapter = new MyAdapter(notaList, this);
+        myAdapter = new MyAdapter(noteList, this);
         recyclerView.setAdapter(myAdapter);
     }
 

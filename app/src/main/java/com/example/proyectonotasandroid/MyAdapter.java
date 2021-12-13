@@ -6,17 +6,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    ArrayList<Nota> notaList;
+    ArrayList<Note> noteList;
     private OnClick onClick;
 
-    public MyAdapter(ArrayList<Nota> notaList,OnClick onClick) {
-        this.notaList = notaList;
+    public MyAdapter(ArrayList<Note> noteList, OnClick onClick) {
+        this.noteList = noteList;
         this.onClick = onClick;
     }
 
@@ -31,18 +32,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
-        holder.salidaTexto.setText(notaList.get(position).getTexto());
+        holder.salidaTexto.setText(noteList.get(position).getText());
     }
 
     @Override
     public int getItemCount() {
-        return notaList.size();
+        return noteList.size();
     }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         TextView salidaTexto;
+        private ConstraintLayout layout;
 
         public MyViewHolder(View itemView){
             super(itemView);
@@ -50,7 +52,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            salidaTexto = itemView.findViewById(R.id.salidaTexto);
+            layout = itemView.findViewById(R.id.layoutView);
+            salidaTexto = itemView.findViewById(R.id.textOut);
+
 
         }
 
@@ -64,7 +68,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         @Override
         public boolean onLongClick(View v) {
             int posicion = getAdapterPosition();
-            onClick.onLongClick(posicion);
+            onClick.onLongClick(posicion, layout);
             return false;
         }
     }

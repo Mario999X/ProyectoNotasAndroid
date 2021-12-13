@@ -19,21 +19,21 @@ import java.util.ArrayList;
 public class JSonSerialicer {
 
     private String file;
-    private Context contexto;
+    private Context context;
     private Gson gson;
 
-    JSonSerialicer(String file, Context contexto) {
+    JSonSerialicer(String file, Context context) {
         this.file = file;
-        this.contexto = contexto;
+        this.context = context;
     }
 
-    public void save(ArrayList<Nota> notasList){
+    public void save(ArrayList<Note> notasList){
         gson = new Gson();
         String json = gson.toJson(notasList);
         Writer writer = null;
 
         try{
-            OutputStream out = contexto.openFileOutput(file,contexto.MODE_PRIVATE);
+            OutputStream out = context.openFileOutput(file, context.MODE_PRIVATE);
             writer = new OutputStreamWriter(out);
             writer.write(json);
         } catch (IOException e) {
@@ -49,15 +49,15 @@ public class JSonSerialicer {
         }
     }
 
-    public ArrayList<Nota> load(){
-        ArrayList<Nota> returner = null;
+    public ArrayList<Note> load(){
+        ArrayList<Note> returner = null;
 
         BufferedReader reader = null;
 
         try{
-            reader= new BufferedReader(new InputStreamReader(contexto.openFileInput(file)));
+            reader= new BufferedReader(new InputStreamReader(context.openFileInput(file)));
             gson = new Gson();
-            Type type = new TypeToken<ArrayList<Nota>>(){}.getType();
+            Type type = new TypeToken<ArrayList<Note>>(){}.getType();
             returner= gson.fromJson(reader, type);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

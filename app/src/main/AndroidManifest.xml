@@ -16,7 +16,7 @@
             android:parentActivityName=".App"
             />
         <activity
-            android:name=".NuevaNota"
+            android:name=".NewNote"
             android:exported="false" />
         <activity
             android:name=".App"
