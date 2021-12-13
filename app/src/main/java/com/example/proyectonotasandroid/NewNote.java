@@ -14,7 +14,7 @@ import android.widget.EditText;
 
 
 // CLASE ENCARGADA DE DISEÑAR UNA VENTANA DE DIALOGO EN LA CREACION DE UNA NUEVA NOTA
-public class NuevaNota extends DialogFragment {
+public class NewNote extends DialogFragment {
 
     // METODO ENCARGADO DE LA CREACION DEL DIALOGO
     @NonNull
@@ -28,19 +28,19 @@ public class NuevaNota extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         //inflamos el dialogo con el layout  de nota nueva
-        View dialogView = inflater.inflate(R.layout.activity_nueva_nota,null);
+        View dialogView = inflater.inflate(R.layout.activity_new_note,null);
 
-        EditText editarTexto = dialogView.findViewById(R.id.editarTexto);
-        Button botonGuardar = dialogView.findViewById(R.id.botonGuardar);
-        Button botonCancelar = dialogView.findViewById(R.id.botonCancelar);
+        EditText textoToWrite = dialogView.findViewById(R.id.textToWrite);
+        Button buttonGuardar = dialogView.findViewById(R.id.buttonGuardar);
+        Button buttonCancelar = dialogView.findViewById(R.id.buttonCancelar);
 
         //construimos el dialog
         builder.setView(dialogView)
-                .setMessage("Añadir una nueva Nota");
+                .setMessage("Añadir una nueva nota");
 
 
         // LISTENER ENCARGADO DEL BOTON CANCELAR
-        botonCancelar.setOnClickListener(new View.OnClickListener() {
+        buttonCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
@@ -48,16 +48,16 @@ public class NuevaNota extends DialogFragment {
         });
 
         //LISTENER ENCARGADO DEL BOTON GUARDAR
-        botonGuardar.setOnClickListener(new View.OnClickListener() {
+        buttonGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Nota newNota = new Nota();
+                Note newNote = new Note();
 
-                newNota.setTexto(editarTexto.getText().toString());
+                newNote.setText(textoToWrite.getText().toString());
 
-                App llamarActivity = (App) getActivity();
+                App callActivity = (App) getActivity();
 
-                llamarActivity.nuevaNota(newNota);
+                callActivity.addNewNote(newNote);
 
                 dismiss();
             }
